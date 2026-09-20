@@ -170,13 +170,17 @@ Frontend will run at http://localhost:5173.
 Authorization: Bearer <your_jwt_token>
 
 ## 📸 Screenshots
-Login Page
-Coming soon
+### 🔐 Login Page
+![Login Page](./screenshots/login-page.png)
 
-Dashboard
-Coming soon
+### 📝 Register Page
+![Register Page](./screenshots/register-page.png)
 
-Tip: Take screenshots of your app and replace this section!
+### 📊 Dashboard
+![Dashboard](./screenshots/dashboard.png)
+
+### ➕ Create Project
+![Create Project](./screenshots/create-project.png)
 
 ## 👨‍💻 Author
 Helmi Ananda Putra
