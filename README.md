@@ -187,9 +187,9 @@ Helmi Ananda Putra
 
 GitHub: @mimomimikmik
 
-Email: (your email)
+Email: npando6@gmail.com
 
-LinkedIn: (your LinkedIn)
+LinkedIn: www.linkedin.com/in/helmi-ananda-putra-51284835b
 
 ## 📄 License
 This project is licensed under the MIT License.
