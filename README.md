@@ -75,3 +75,74 @@ Built to showcase production-ready skills for a **Full Stack React Developer** r
 ---
 
 ## 📁 Project Structure
+eterna-fullstack-task-manager/
+├── client/ # React frontend
+│ ├── src/
+│ │ ├── components/ # Reusable components
+│ │ ├── contexts/ # React Context (Auth)
+│ │ ├── pages/ # Page components
+│ │ ├── services/ # API service (Axios)
+│ │ └── models/ # TypeScript types
+│ └── package.json
+│
+├── server/ # Express backend
+│ ├── src/
+│ │ ├── controllers/ # Route handlers
+│ │ ├── middlewares/ # Auth middleware
+│ │ ├── routes/ # API routes
+│ │ └── utils/ # Prisma client
+│ ├── prisma/
+│ │ └── schema.prisma # Database schema
+│ └── package.json
+│
+└── README.md
+
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- **Node.js** v18+
+- **PostgreSQL** v14+
+- **npm** or **yarn**
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/mimomimikmik/eterna-fullstack-task-manager.git
+cd eterna-fullstack-task-manager
+```
+
+### 2. Setup Backend
+```bash
+cd server
+npm install
+```
+
+Create a .env file in the server folder:
+```bash
+DATABASE_URL="postgresql://postgres:YOUR_PASSWORD@localhost:5432/eterna_db?schema=public"
+PORT=5000
+JWT_SECRET=your_super_secret_key_here
+```
+
+Run database migration:
+```bash
+npx prisma migrate dev --name init
+```
+
+Start the backend:
+```bash
+npm run dev
+```
+
+Backend will run at http://localhost:5000.
+
+### 2. Setup Frontend
+Open a new terminal:
+```bash
+cd client
+npm install
+npm run dev
+```
+Frontend will run at http://localhost:5173.
