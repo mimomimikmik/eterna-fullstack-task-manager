@@ -146,3 +146,53 @@ npm install
 npm run dev
 ```
 Frontend will run at http://localhost:5173.
+
+## 📡 API Endpoints
+### 🔐 Authentication
+
+| Method | Endpoint | Description | Auth Required |
+|:---:|---|---|:---:|
+| `POST` | `/api/auth/register` | Register new user | ❌ |
+| `POST` | `/api/auth/login` | Login user | ❌ |
+| `GET` | `/api/auth/me` | Get current user | ✅ |
+
+### 📋 Projects
+
+| Method | Endpoint | Description | Auth Required |
+|:---:|---|---|:---:|
+| `GET` | `/api/projects` | Get all user projects | ✅ |
+| `POST` | `/api/projects` | Create new project | ✅ |
+| `GET` | `/api/projects/:id` | Get project by ID | ✅ |
+| `PUT` | `/api/projects/:id` | Update project | ✅ |
+| `DELETE` | `/api/projects/:id` | Delete project | ✅ |
+
+**Auth Header Format:**
+Authorization: Bearer <your_jwt_token>
+
+## 📸 Screenshots
+Login Page
+Coming soon
+
+Dashboard
+Coming soon
+
+Tip: Take screenshots of your app and replace this section!
+
+## 👨‍💻 Author
+Helmi Ananda Putra
+
+GitHub: @mimomimikmik
+
+Email: (your email)
+
+LinkedIn: (your LinkedIn)
+
+## 📄 License
+This project is licensed under the MIT License.
+
+## 🙏 Acknowledgments
+Built as a portfolio project for Eterna Indonesia.
+
+Inspired by modern full-stack development best practices.
+
+⭐ If you like this project, please give it a star! ⭐
