@@ -178,8 +178,17 @@ Authorization: Bearer <your_jwt_token>
 ### 📝 Register Page
 ![Register Page](./screenshots/register-page.png)
 
-### 📊 Dashboard
-![Dashboard](./screenshots/dashboard.png)
+### 📊 Dashboard (Light Mode)
+![Dashboard Light](./screenshots/dashboard-light.png)
+
+### 🌙 Dashboard (Dark Mode)
+![Dashboard Dark](./screenshots/dashboard-dark.png)
+
+### 👤 Profile Page
+![Profile Page](./screenshots/profile-page.png)
+
+### ⚠️ Confirmation Modal
+![Confirmation Modal](./screenshots/confirm-modal.png)
 
 ### ➕ Create Project
 ![Create Project](./screenshots/create-project.png)
