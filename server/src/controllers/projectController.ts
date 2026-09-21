@@ -4,28 +4,30 @@ import prisma from '../utils/prisma';
 // CREATE PROJECT
 export const createProject = async (req: Request, res: Response) => {
   try {
-    const { title, description } = req.body;
+    const { title, description, priority, dueDate } = req.body;
     const userId = (req as any).userId;
 
     if (!title) {
-      return res.status(400).json({ message: 'Title wajib diisi' });
+      return res.status(400).json({ message: 'Title is required.' });
     }
 
     const project = await prisma.project.create({
       data: {
         title,
         description,
+        priority: priority || 'MEDIUM',
+        dueDate: dueDate ? new Date(dueDate) : null,
         userId,
       },
     });
 
     res.status(201).json({
-      message: 'Project berhasil dibuat',
+      message: 'Project successfully created',
       project,
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Terjadi kesalahan pada server' });
+    res.status(500).json({ message: 'A server error occurred.' });
   }
 };
 
@@ -33,9 +35,23 @@ export const createProject = async (req: Request, res: Response) => {
 export const getProjects = async (req: Request, res: Response) => {
   try {
     const userId = (req as any).userId;
+    const { search, priority } = req.query;
+
+    const whereClause: any = { userId };
+
+    if (search) {
+      whereClause.OR = [
+        { title: { contains: search as string, mode: 'insensitive' } },
+        { description: { contains: search as string, mode: 'insensitive' } },
+      ];
+    }
+
+    if (priority && priority !== 'ALL') {
+      whereClause.priority = priority;
+    }
 
     const projects = await prisma.project.findMany({
-      where: { userId },
+      where: whereClause,
       orderBy: { createdAt: 'desc' },
     });
 
@@ -45,7 +61,7 @@ export const getProjects = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Terjadi kesalahan pada server' });
+    res.status(500).json({ message: 'A server error occurred.' });
   }
 };
 
@@ -60,13 +76,13 @@ export const getProjectById = async (req: Request, res: Response) => {
     });
 
     if (!project) {
-      return res.status(404).json({ message: 'Project tidak ditemukan' });
+      return res.status(404).json({ message: 'Project not found' });
     }
 
     res.status(200).json({ project });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Terjadi kesalahan pada server' });
+    res.status(500).json({ message: 'A server error occurred.' });
   }
 };
 
@@ -74,7 +90,7 @@ export const getProjectById = async (req: Request, res: Response) => {
 export const updateProject = async (req: Request, res: Response) => {
   try {
     const id = req.params.id as string;
-    const { title, description } = req.body;
+    const { title, description, priority, dueDate } = req.body;
     const userId = (req as any).userId;
 
     // Cek apakah project milik user yang login
@@ -83,21 +99,26 @@ export const updateProject = async (req: Request, res: Response) => {
     });
 
     if (!existingProject) {
-      return res.status(404).json({ message: 'Project tidak ditemukan' });
+      return res.status(404).json({ message: 'Project not found' });
     }
 
     const project = await prisma.project.update({
       where: { id },
-      data: { title, description },
+      data: {
+        title,
+        description,
+        priority,
+        dueDate: dueDate ? new Date(dueDate) : null,
+      },
     });
 
     res.status(200).json({
-      message: 'Project berhasil diupdate',
+      message: 'The project was successfully updated.',
       project,
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Terjadi kesalahan pada server' });
+    res.status(500).json({ message: 'A server error occurred.' });
   }
 };
 
@@ -113,16 +134,16 @@ export const deleteProject = async (req: Request, res: Response) => {
     });
 
     if (!existingProject) {
-      return res.status(404).json({ message: 'Project tidak ditemukan' });
+      return res.status(404).json({ message: 'Project not found' });
     }
 
     await prisma.project.delete({
       where: { id },
     });
 
-    res.status(200).json({ message: 'Project berhasil dihapus' });
+    res.status(200).json({ message: 'Project successfully deleted.' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Terjadi kesalahan pada server' });
+    res.status(500).json({ message: 'A server error occurred.' });
   }
 };

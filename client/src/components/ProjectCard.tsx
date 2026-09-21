@@ -1,11 +1,12 @@
-interface Project {
-  id: string;
-  title: string;
-  description?: string;
-  userId: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import type { Project } from '../types';
+// interface Project {
+//   id: string;
+//   title: string;
+//   description?: string;
+//   userId: string;
+//   createdAt: string;
+//   updatedAt: string;
+// }
 
 interface ProjectCardProps {
   project: Project;
@@ -13,13 +14,56 @@ interface ProjectCardProps {
   onDelete: () => void;
 }
 
+const priorityColors = {
+  LOW: 'bg-green-100 text-green-700 border-green-200',
+  MEDIUM: 'bg-yellow-100 text-yellow-700 border-yellow-200',
+  HIGH: 'bg-red-100 text-red-700 border-red-200',
+};
+
+const priorityLabels = {
+  LOW: 'Low',
+  MEDIUM: 'Medium',
+  HIGH: 'High',
+};
+
 const ProjectCard = ({ project, onEdit, onDelete }: ProjectCardProps) => {
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return null;
+    const date = new Date(dateString);
+    return date.toLocaleDateString('id-ID', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    });
+  };
+
+  const isOverdue = project.dueDate && new Date(project.dueDate) < new Date();
+
   return (
-    <div className="bg-white rounded-lg shadow-md p-5 hover:shadow-lg transition">
-      <h3 className="text-lg font-semibold mb-2">{project.title}</h3>
-      <p className="text-gray-600 text-sm mb-4">
+    <div className="bg-white rounded-lg shadow-md p-5 hover:shadow-lg transition flex flex-col">
+      <div className="flex justify-between items-start mb-3">
+        <h3 className="text-lg font-semibold flex-1 mr-2">{project.title}</h3>
+        <span className={`text-xs px-2 py-1 rounded-full border font-medium ${priorityColors[project.priority]}`}>
+          {priorityLabels[project.priority]}
+        </span>
+      </div>
+
+      <p className="text-gray-600 text-sm mb-4 flex-1">
         {project.description || 'Tidak ada deskripsi'}
       </p>
+
+      {project.dueDate && (
+        <div className={`flex items-center gap-1 text-xs mb-4 ${isOverdue ? 'text-red-600 font-medium' : 'text-gray-500'}`}>
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          <span>
+            {isOverdue ? 'Terlambat: ' : 'Deadline: '}
+            {formatDate(project.dueDate)}
+          </span>
+        </div>
+      )}
+
       <div className="flex gap-2">
         <button
           onClick={() => onEdit(project)}
