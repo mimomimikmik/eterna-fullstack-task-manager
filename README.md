@@ -75,6 +75,7 @@ Built to showcase production-ready skills for a **Full Stack React Developer** r
 ---
 
 ## 📁 Project Structure
+```bash
 eterna-fullstack-task-manager/
 ├── client/ # React frontend
 │ ├── src/
@@ -96,6 +97,7 @@ eterna-fullstack-task-manager/
 │ └── package.json
 │
 └── README.md
+```
 
 
 ---
@@ -181,6 +183,21 @@ Authorization: Bearer <your_jwt_token>
 
 ### ➕ Create Project
 ![Create Project](./screenshots/create-project.png)
+
+## 🌐 Live Demo
+
+🔗 **Frontend:** [https://eterna-fullstack-task-manager-green.vercel.app](https://eterna-fullstack-task-manager-green.vercel.app)
+🔗 **Backend API:** [https://eterna-fullstack-task-manager-production.up.railway.app](https://eterna-fullstack-task-manager-production.up.railway.app)
+
+### 🎮 Demo Account
+Use the following account to try the application without needing to register:
+
+| Field | Value |
+|---|---|
+| **Email** | `demo@eterna.com` |
+| **Password** | `demo123456` |
+
+> **Note:** You can also register a new account yourself to try out the registration feature.
 
 ## 👨‍💻 Author
 Helmi Ananda Putra
