@@ -12,8 +12,8 @@ const ConfirmModal = ({
   isOpen,
   title,
   message,
-  confirmText = 'Hapus',
-  cancelText = 'Batal',
+  confirmText = 'Delete',
+  cancelText = 'Cancelled',
   onConfirm,
   onCancel,
 }: ConfirmModalProps) => {

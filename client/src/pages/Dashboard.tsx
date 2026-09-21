@@ -84,16 +84,6 @@ const Dashboard = () => {
     }
   };
 
-  // const handleDelete = async (id: string) => {
-  //   if (!confirm('Yakin ingin menghapus project ini?')) return;
-  //   try {
-  //     await api.delete(`/projects/${id}`);
-  //     fetchProjects();
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
   const resetForm = () => {
     setShowForm(false);
     setEditingProject(null);
@@ -153,7 +143,7 @@ const Dashboard = () => {
                   onClick={resetForm}
                   className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400"
                 >
-                  Batal
+                  Cancelled
                 </button>
               </div>
             </form>
@@ -200,8 +190,8 @@ const Dashboard = () => {
 
       <ConfirmModal
         isOpen={!!deleteTarget}
-        title="Hapus Project"
-        message={`Yakin ingin menghapus "${deleteTarget?.title}"? Tindakan ini tidak bisa dibatalkan.`}
+        title="Delete Project"
+        message={`Are you sure you want to delete? "${deleteTarget?.title}"? This action cannot be undone..`}
         onConfirm={handleConfirmDelete}
         onCancel={() => setDeleteTarget(null)}
       />
