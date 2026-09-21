@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import { useAuth } from '../contexts/AuthContext';
 
 const Profile = () => {
-  const { user, login } = useAuth();
+  const { user } = useAuth();
   const [name, setName] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -36,10 +36,8 @@ const Profile = () => {
         localStorage.removeItem('token');
         setTimeout(() => (window.location.href = '/login'), 1500);
       } else {
-        // Refresh user data via /auth/me
-        const res = await api.get('/auth/me');
-        // Update state via login? Atau reload page saja
-        window.location.reload();
+        // Refresh page to reload user data
+        setTimeout(() => window.location.reload(), 800);
       }
     } catch (err: any) {
       toast.error(err.response?.data?.message || 'Gagal update profile', { id: toastId });
