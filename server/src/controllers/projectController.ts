@@ -52,7 +52,7 @@ export const getProjects = async (req: Request, res: Response) => {
 // GET PROJECT BY ID
 export const getProjectById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const userId = (req as any).userId;
 
     const project = await prisma.project.findFirst({
@@ -73,7 +73,7 @@ export const getProjectById = async (req: Request, res: Response) => {
 // UPDATE PROJECT
 export const updateProject = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const { title, description } = req.body;
     const userId = (req as any).userId;
 
@@ -104,7 +104,7 @@ export const updateProject = async (req: Request, res: Response) => {
 // DELETE PROJECT
 export const deleteProject = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const userId = (req as any).userId;
 
     // Cek apakah project milik user yang login
