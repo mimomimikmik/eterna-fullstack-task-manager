@@ -117,3 +117,47 @@ export const getMe = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Terjadi kesalahan pada server' });
   }
 };
+
+// UPDATE PROFILE
+export const updateProfile = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).userId;
+    const { name, currentPassword, newPassword } = req.body;
+
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) {
+      return res.status(404).json({ message: 'User tidak ditemukan' });
+    }
+
+    const updateData: any = {};
+
+    if (name && name !== user.name) {
+      updateData.name = name;
+    }
+
+    if (newPassword) {
+      if (!currentPassword) {
+        return res.status(400).json({ message: 'Password lama wajib diisi' });
+      }
+      const isValid = await bcrypt.compare(currentPassword, user.password);
+      if (!isValid) {
+        return res.status(400).json({ message: 'Password lama salah' });
+      }
+      updateData.password = await bcrypt.hash(newPassword, 10);
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: updateData,
+      select: { id: true, email: true, name: true, createdAt: true },
+    });
+
+    res.status(200).json({
+      message: 'Profile berhasil diupdate',
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Terjadi kesalahan pada server' });
+  }
+};

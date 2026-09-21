@@ -40,7 +40,7 @@ const ProjectCard = ({ project, onEdit, onDelete }: ProjectCardProps) => {
   const isOverdue = project.dueDate && new Date(project.dueDate) < new Date();
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-5 hover:shadow-lg transition flex flex-col">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-5 hover:shadow-lg transition flex flex-col">
       <div className="flex justify-between items-start mb-3">
         <h3 className="text-lg font-semibold flex-1 mr-2">{project.title}</h3>
         <span className={`text-xs px-2 py-1 rounded-full border font-medium ${priorityColors[project.priority]}`}>
@@ -48,7 +48,7 @@ const ProjectCard = ({ project, onEdit, onDelete }: ProjectCardProps) => {
         </span>
       </div>
 
-      <p className="text-gray-600 text-sm mb-4 flex-1">
+      <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 flex-1">
         {project.description || 'Tidak ada deskripsi'}
       </p>
 
