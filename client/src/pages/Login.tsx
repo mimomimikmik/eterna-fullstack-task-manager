@@ -13,13 +13,13 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const toastId = toast.loading('Sedang login...');
+    const toastId = toast.loading('Logging in...');
     try {
       await login(email, password);
-      toast.success('Login berhasil! Selamat datang 👋', { id: toastId });
+      toast.success('Login successful! Welcome back 👋', { id: toastId });
       navigate('/dashboard');
     } catch (err: any) {
-      toast.error(err.response?.data?.message || 'Login gagal', { id: toastId });
+      toast.error(err.response?.data?.message || 'Login failed', { id: toastId });
     } finally {
       setLoading(false);
     }
@@ -28,27 +28,27 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
       <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
-        <h1 className="text-2xl font-bold text-center mb-6">Log in to Eterna</h1>
+        <h1 className="text-2xl font-bold text-center mb-6 dark:text-white">Log in to Eterna</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
+            <label className="block text-sm font-medium mb-1 dark:text-gray-300">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               placeholder="test@eterna.com"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Password</label>
+            <label className="block text-sm font-medium mb-1 dark:text-gray-300">Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               placeholder="••••••••"
             />
           </div>
@@ -66,9 +66,9 @@ const Login = () => {
             {loading ? 'Loading...' : 'Login'}
           </button>
         </form>
-        <p className="text-center text-sm mt-4">
+        <p className="text-center text-sm mt-4 dark:text-gray-300">
           Don't have an account yet?{' '}
-          <Link to="/register" className="text-blue-600 hover:underline">
+          <Link to="/register" className="text-blue-600 hover:underline dark:text-blue-400">
             Sign up here
           </Link>
         </p>

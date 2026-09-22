@@ -18,7 +18,7 @@ const Profile = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const toastId = toast.loading('Menyimpan perubahan...');
+    const toastId = toast.loading('Saving changes...');
     try {
       const payload: any = { name };
       if (newPassword) {
@@ -27,12 +27,12 @@ const Profile = () => {
       }
 
       await api.put('/auth/profile', payload);
-      toast.success('Profile berhasil diupdate ✅', { id: toastId });
+      toast.success('Profile updated successfully ✅', { id: toastId });
 
       // Refresh user data
       if (user && newPassword) {
-        // Password berubah, user perlu login ulang
-        toast.success('Silakan login ulang dengan password baru', { id: toastId });
+        // Password changed, user needs to log in again
+        toast.success('Please log in again with your new password', { id: toastId });
         localStorage.removeItem('token');
         setTimeout(() => (window.location.href = '/login'), 1500);
       } else {
@@ -40,7 +40,7 @@ const Profile = () => {
         setTimeout(() => window.location.reload(), 800);
       }
     } catch (err: any) {
-      toast.error(err.response?.data?.message || 'Gagal update profile', { id: toastId });
+      toast.error(err.response?.data?.message || 'Failed to update profile', { id: toastId });
     } finally {
       setLoading(false);
     }
@@ -50,7 +50,7 @@ const Profile = () => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       <Navbar />
       <div className="max-w-2xl mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold mb-6 dark:text-white">Profile Saya</h1>
+        <h1 className="text-2xl font-bold mb-6 dark:text-white">My Profile</h1>
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-colors">
           <div className="mb-6 pb-6 border-b dark:border-gray-700">
@@ -67,7 +67,7 @@ const Profile = () => {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-1 dark:text-gray-300">Nama</label>
+              <label className="block text-sm font-medium mb-1 dark:text-gray-300">Name</label>
               <input
                 type="text"
                 value={name}
@@ -78,27 +78,27 @@ const Profile = () => {
             </div>
 
             <div className="pt-4 border-t dark:border-gray-700">
-              <h3 className="text-md font-semibold mb-3 dark:text-white">Ganti Password (opsional)</h3>
+              <h3 className="text-md font-semibold mb-3 dark:text-white">Change Password (optional)</h3>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1 dark:text-gray-300">Password Lama</label>
+                  <label className="block text-sm font-medium mb-1 dark:text-gray-300">Current Password</label>
                   <input
                     type="password"
                     value={currentPassword}
                     onChange={(e) => setCurrentPassword(e.target.value)}
                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                    placeholder="Kosongkan jika tidak ganti password"
+                    placeholder="Leave empty if not changing password"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1 dark:text-gray-300">Password Baru</label>
+                  <label className="block text-sm font-medium mb-1 dark:text-gray-300">New Password</label>
                   <input
                     type="password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                     minLength={6}
                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                    placeholder="Minimal 6 karakter"
+                    placeholder="Minimum 6 characters"
                   />
                 </div>
               </div>
@@ -110,7 +110,7 @@ const Profile = () => {
                 disabled={loading}
                 className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
               >
-                {loading ? 'Menyimpan...' : 'Simpan Perubahan'}
+                {loading ? 'Saving...' : 'Save Changes'}
               </button>
             </div>
           </form>

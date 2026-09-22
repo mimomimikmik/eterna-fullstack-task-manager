@@ -31,7 +31,7 @@ const Dashboard = () => {
       const response = await api.get('/projects', { params });
       setProjects(response.data.projects);
     } catch (error) {
-      toast.error('Gagal memuat project');
+      toast.error('Failed to load projects');
     } finally {
       setLoading(false);
     }
@@ -40,14 +40,14 @@ const Dashboard = () => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       fetchProjects();
-    }, 300); // debounce 300ms untuk search
+    }, 300); // debounce 300ms for search
     return () => clearTimeout(timeout);
   }, [search, priorityFilter]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    const toastId = toast.loading(editingProject ? 'Mengupdate project...' : 'Membuat project...');
+    const toastId = toast.loading(editingProject ? 'Updating project...' : 'Creating project...');
     try {
       const payload = {
         title,
@@ -58,15 +58,15 @@ const Dashboard = () => {
 
       if (editingProject) {
         await api.put(`/projects/${editingProject.id}`, payload);
-        toast.success('Project berhasil diupdate ✅', { id: toastId });
+        toast.success('Project updated successfully ✅', { id: toastId });
       } else {
         await api.post('/projects', payload);
-        toast.success('Project berhasil dibuat 🎉', { id: toastId });
+        toast.success('Project created successfully 🎉', { id: toastId });
       }
       resetForm();
       fetchProjects();
     } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Terjadi kesalahan', { id: toastId });
+      toast.error(error.response?.data?.message || 'Something went wrong', { id: toastId });
     } finally {
       setSubmitting(false);
     }
@@ -87,14 +87,14 @@ const Dashboard = () => {
 
   const handleConfirmDelete = async () => {
     if (!deleteTarget) return;
-    const toastId = toast.loading('Menghapus project...');
+    const toastId = toast.loading('Deleting project...');
     try {
       await api.delete(`/projects/${deleteTarget.id}`);
-      toast.success('Project berhasil dihapus 🗑️', { id: toastId });
+      toast.success('Project deleted successfully 🗑️', { id: toastId });
       setDeleteTarget(null);
       fetchProjects();
     } catch (error) {
-      toast.error('Gagal menghapus project', { id: toastId });
+      toast.error('Failed to delete project', { id: toastId });
     }
   };
 
@@ -140,7 +140,7 @@ const Dashboard = () => {
             </p>
           </div>
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
-            <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Selesai (Done)</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Done</p>
             <p className="text-2xl font-bold text-green-600">
               {projects.filter((p) => p.priority === 'LOW').length}
             </p>
@@ -157,7 +157,7 @@ const Dashboard = () => {
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Cari project..."
+              placeholder="Search projects..."
               className="w-full pl-10 pr-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -176,7 +176,7 @@ const Dashboard = () => {
         {showForm && (
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
             <h2 className="text-lg font-semibold mb-4">
-              {editingProject ? 'Edit Project' : 'Project Baru'}
+              {editingProject ? 'Edit Project' : 'New Project'}
             </h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
@@ -212,7 +212,7 @@ const Dashboard = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">Due Date (opsional)</label>
+                  <label className="block text-sm font-medium mb-1">Due Date (optional)</label>
                   <input
                     type="date"
                     value={dueDate}
@@ -227,7 +227,7 @@ const Dashboard = () => {
                   disabled={submitting}
                   className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
                 >
-                  {submitting ? 'Save...' : editingProject ? 'Update' : 'Save'}
+                  {submitting ? 'Saving...' : editingProject ? 'Update' : 'Save'}
                 </button>
                 <button
                   type="button"
@@ -247,7 +247,7 @@ const Dashboard = () => {
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
-            <p className="text-gray-500">Loading project...</p>
+            <p className="text-gray-500">Loading projects...</p>
           </div>
         ) : projects.length === 0 ? (
           <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-lg shadow">
@@ -257,12 +257,12 @@ const Dashboard = () => {
               </svg>
             </div>
             <h3 className="text-lg font-semibold mb-2">
-              {search || priorityFilter !== 'ALL' ? 'Tidak ada project yang cocok' : 'Belum ada project'}
+              {search || priorityFilter !== 'ALL' ? 'No matching projects' : 'No projects yet'}
             </h3>
             <p className="text-gray-500 mb-4">
               {search || priorityFilter !== 'ALL'
-                ? 'Coba ubah kata kunci atau filter kamu.'
-                : 'Mulai dengan membuat project pertamamu!'}
+                ? 'Try changing your keyword or filter.'
+                : 'Start by creating your first project!'}
             </p>
             {!search && priorityFilter === 'ALL' && (
               <button
@@ -290,7 +290,7 @@ const Dashboard = () => {
       <ConfirmModal
         isOpen={!!deleteTarget}
         title="Delete Project"
-        message={`Are you sure you want to delete? "${deleteTarget?.title}"? This action cannot be undone..`}
+        message={`Are you sure you want to delete "${deleteTarget?.title}"? This action cannot be undone..`}
         onConfirm={handleConfirmDelete}
         onCancel={() => setDeleteTarget(null)}
       />

@@ -13,7 +13,7 @@ const ConfirmModal = ({
   title,
   message,
   confirmText = 'Delete',
-  cancelText = 'Cancelled',
+  cancelText = 'Cancel',
   onConfirm,
   onCancel,
 }: ConfirmModalProps) => {
