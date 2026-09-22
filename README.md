@@ -208,6 +208,23 @@ Use the following account to try the application without needing to register:
 
 > **Note:** You can also register a new account yourself to try out the registration feature.
 
+## 🧠 What I Learned
+
+- Building a full-stack application from scratch with modern JavaScript stacks.
+- Implementing JWT authentication with secure password hashing.
+- Designing RESTful APIs with proper error handling.
+- Using Prisma ORM for type-safe database operations.
+- Deploying to production with CI/CD automation (Vercel + Railway).
+- Creating responsive UIs with Tailwind CSS and dark mode support.
+
+## 🚀 Future Improvements
+
+- [ ] Add drag-and-drop for reordering projects
+- [ ] Implement real-time updates with WebSockets
+- [ ] Add team collaboration features
+- [ ] Integrate email notifications
+- [ ] Add unit & integration tests
+
 ## 👨‍💻 Author
 Helmi Ananda Putra
 
